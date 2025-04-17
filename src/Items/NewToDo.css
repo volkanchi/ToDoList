@@ -1,0 +1,15 @@
+.new-todo-container {
+    max-width: 800px;
+    margin: 15px auto;
+    padding: 20px;
+    background-color: #989494;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+  }
+  
+  @media (max-width: 576px) {
+    .new-todo-container {
+      margin: 20px 15px;
+      padding: 10px;
+    }
+  }
