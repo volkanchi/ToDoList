@@ -19,7 +19,7 @@ const ToDoItem = ({ task, title, date, description, onDelete}) => {
 
     try {
       await fetch(
-        `https://v1.nocodeapi.com/volkanizzma/google_sheets/PxksuZrOVcbawrTb?tabId=Sayfa1&row_id=${task.rowid}`,
+        `https://v1.nocodeapi.com/chelebi/google_sheets/GyGHDytbieNlsNnz?tabId=Sayfa1&row_id=${task.row_id}`,
         requestOptions
       );
       onDelete(item); // silme sonrası listeyi yenile

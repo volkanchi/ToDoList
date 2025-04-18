@@ -8,7 +8,7 @@ function App() {
   const fetchTasks = async () => {
     try {
       const response = await fetch(
-        "https://v1.nocodeapi.com/volkanizzma/google_sheets/PxksuZrOVcbawrTb?tabId=Sayfa1"
+        "https://v1.nocodeapi.com/chelebi/google_sheets/GyGHDytbieNlsNnz?tabId=Sayfa1"
       );
 
       if (!response.ok) {
