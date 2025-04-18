@@ -37,13 +37,13 @@ const ToDoForm = ({ onAddToDo, todos }) => {
       ? userInput.date.format("YYYY-MM-DD")
       : moment(userInput.date).format("YYYY-MM-DD");
 
-
-    const maxRowId = todos.length > 0 ? Math.max(...todos.map((item) => item.row_id)) +1 : 2;
+    const maxRowId = todos.length > 0 ? Math.max(...todos.map((item) => item.row_id)) + 1 : 2;
     const todoItem = {
       row_id: maxRowId,
       Title: userInput.title,
       Date: userInput.date,
       Description: userInput.description,
+      Durum: true, // Yeni görev başlangıçta yapılmadı olarak ayarlanır
     };
 
     onAddToDo(todoItem);
@@ -51,7 +51,15 @@ const ToDoForm = ({ onAddToDo, todos }) => {
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
-    const payload = [[userInput.title.trim(), formattedDate, userInput.description]];
+    // Durum alanını payload'a ekledik
+    const payload = [
+      [
+        userInput.title.trim(),
+        formattedDate,
+        userInput.description,
+        true, // Durum bilgisi eklendi
+      ],
+    ];
 
     const requestOptions = {
       method: "POST",
@@ -74,8 +82,6 @@ const ToDoForm = ({ onAddToDo, todos }) => {
 
       const result = await response.json();
       console.log("API Response:", result);
-
-  
     } catch (error) {
       console.error("Error:", error);
       alert("Failed to save to Google Sheets. Please try again.");

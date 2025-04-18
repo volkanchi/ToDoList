@@ -1,19 +1,33 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Tooltip, Button, Input } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import ToDoItem from "./ToDoItem";
 import "./NewToDo.css";
 
-const ToDos = ({ todos, onDelete }) => {
+const ToDos = ({ todos }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [isSearchVisible, setIsSearchVisible] = useState(false);
+  const [filteredTodos, setFilteredTodos] = useState([]);
 
-  const filteredTodos = todos.filter((task) =>
-    task.Title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  useEffect(() => {
+    console.log("Todos:", todos); // todos içeriğini kontrol edin
+    const filtered = todos.filter(
+      (task) =>
+        task.Durum === true || task.Durum === "TRUE" && // Durum boolean veya string "TRUE" ise
+        task.Title.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setFilteredTodos(filtered);
+  }, [todos, searchTerm]);
 
   const toggleSearch = () => {
     setIsSearchVisible((prev) => !prev);
+  };
+
+  const handleTaskUpdate = (updatedTask) => {
+    // Tamamlanan görevi listeden kaldır
+    setFilteredTodos((prevTodos) =>
+      prevTodos.filter((task) => task.row_id !== updatedTask.row_id)
+    );
   };
 
   return (
@@ -47,7 +61,8 @@ const ToDos = ({ todos, onDelete }) => {
               title={task.Title}
               date={task.Date}
               description={task.Description}
-              onDelete={onDelete}
+              durum={task.Durum}
+              onTaskUpdate={handleTaskUpdate}
             />
           ))}
         </div>
